@@ -6,10 +6,15 @@ import Image from "next/image";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
+const PILLARS = [
+  { label: "Projects", value: "Open builds" },
+  { label: "Academy", value: "Deep tutorials" },
+  { label: "Post-mortems", value: "Honest failures" },
+];
+
 export function HomeHero() {
   return (
     <section className="relative min-h-[calc(100vh-64px)] overflow-hidden">
-      {/* Full-bleed background */}
       <div className="absolute inset-0">
         <Image
           src="/images/hero-hands.png"
@@ -19,26 +24,32 @@ export function HomeHero() {
           className="object-cover object-[65%_center]"
           sizes="100vw"
         />
-        {/* Left readability gradient — keeps copy on the light side of the image */}
         <div
           className="absolute inset-0"
           style={{
             background: `linear-gradient(
               105deg,
-              rgba(255, 255, 255, 0.94) 0%,
-              rgba(255, 255, 255, 0.88) 28%,
-              rgba(232, 241, 245, 0.55) 48%,
-              rgba(232, 241, 245, 0.12) 68%,
+              rgba(255, 255, 255, 0.96) 0%,
+              rgba(255, 255, 255, 0.9) 26%,
+              rgba(232, 241, 245, 0.6) 46%,
+              rgba(232, 241, 245, 0.15) 66%,
               transparent 100%
             )`,
           }}
           aria-hidden
         />
+        <div
+          className="absolute inset-x-0 bottom-0 h-24"
+          style={{
+            background:
+              "linear-gradient(to top, #e8f1f5 0%, transparent 100%)",
+          }}
+          aria-hidden
+        />
       </div>
 
-      {/* Content — left column only */}
-      <div className="relative mx-auto flex min-h-[calc(100vh-64px)] max-w-[1200px] items-center px-8 py-20 lg:py-24">
-        <div className="w-full max-w-[520px]">
+      <div className="relative mx-auto flex min-h-[calc(100vh-64px)] max-w-[1200px] flex-col justify-center px-8 py-20 lg:py-24">
+        <div className="w-full max-w-[560px]">
           <motion.div
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
@@ -48,7 +59,7 @@ export function HomeHero() {
               className="inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5 text-[10px] font-semibold uppercase tracking-[0.14em]"
               style={{
                 borderColor: "rgba(13, 67, 102, 0.14)",
-                background: "rgba(255, 255, 255, 0.72)",
+                background: "rgba(255, 255, 255, 0.78)",
                 color: "#4a6b82",
                 backdropFilter: "blur(8px)",
               }}
@@ -58,7 +69,7 @@ export function HomeHero() {
                 style={{ background: "#1a7a5e" }}
                 aria-hidden
               />
-              Building publicly — May 2026
+              AI engineering lab · India
             </span>
           </motion.div>
 
@@ -92,10 +103,10 @@ export function HomeHero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, delay: 0.16, ease }}
-            className="mt-5 max-w-[440px] text-[1.05rem] leading-[1.7] text-[#3d5a72]"
+            className="mt-5 max-w-[460px] text-[1.05rem] leading-[1.7] text-[#3d5a72]"
           >
-            Projects, engineering breakdowns, architecture docs, failures, and
-            tutorials from OrbitX. Less hype. More systems that actually work.
+            Architecture, code, failures, and tutorials from a team that ships in
+            the open — less hype, more systems that work.
           </motion.p>
 
           <motion.div
@@ -113,12 +124,30 @@ export function HomeHero() {
             </Link>
             <Link
               href="/learn"
-              className="inline-flex items-center justify-center rounded-lg border border-[rgba(13,67,102,0.22)] bg-[rgba(255,255,255,0.65)] px-6 py-2.5 text-[0.9rem] font-semibold text-[#0d4366] backdrop-blur-sm transition-all duration-200 hover:border-[rgba(13,67,102,0.38)] hover:bg-white"
+              className="inline-flex items-center justify-center rounded-lg border border-[rgba(13,67,102,0.22)] bg-[rgba(255,255,255,0.7)] px-6 py-2.5 text-[0.9rem] font-semibold text-[#0d4366] backdrop-blur-sm transition-all duration-200 hover:border-[rgba(13,67,102,0.38)] hover:bg-white"
             >
               Read Docs
             </Link>
           </motion.div>
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.35, ease }}
+          className="mt-16 flex flex-wrap gap-8 border-t border-[rgba(13,67,102,0.1)] pt-8"
+        >
+          {PILLARS.map((p) => (
+            <div key={p.label}>
+              <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[#6a8fa8]">
+                {p.label}
+              </p>
+              <p className="mt-1 text-[14px] font-medium text-[#0a3450]">
+                {p.value}
+              </p>
+            </div>
+          ))}
+        </motion.div>
       </div>
     </section>
   );

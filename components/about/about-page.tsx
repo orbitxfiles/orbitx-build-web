@@ -1,7 +1,10 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
-import { Check, Cpu, FileText, Globe } from "lucide-react";
+import { ArrowRight, Check, Cpu, FileText, Globe } from "lucide-react";
+import { TeamGridShuffled } from "@/components/about/team-grid-shuffled";
+
 const ease = [0.16, 1, 0.3, 1] as const;
 
 const MISSION = [
@@ -33,10 +36,10 @@ const VALUES = [
 ];
 
 const STATS = [
-  { value: "2", label: "Projects" },
+  { value: "4", label: "Builders" },
+  { value: "3+", label: "Projects" },
   { value: "9+", label: "Articles" },
   { value: "100%", label: "Built in public" },
-  { value: "Open", label: "By default" },
 ];
 
 export function AboutPageContent() {
@@ -96,7 +99,35 @@ export function AboutPageContent() {
         </div>
       </section>
 
-      <section className="pb-24">
+      <section className="border-y border-[rgba(13,67,102,0.08)] bg-white/50 py-20">
+        <div className="mx-auto max-w-[1100px] px-8">
+          <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
+            <div>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[#4a6b82]">
+                TEAM
+              </p>
+              <h2 className="mt-3 text-2xl font-semibold text-[#0a3450]">
+                Who builds OrbitX
+              </h2>
+              <p className="mt-3 max-w-[520px] text-[0.925rem] leading-[1.7] text-[#4a6b82]">
+                Card order shuffles on each visit. Connect on LinkedIn or GitHub, or
+                open a full profile built for recruiters.
+              </p>
+            </div>
+            <Link
+              href="/about/team"
+              className="inline-flex items-center gap-2 rounded-lg border border-[rgba(13,67,102,0.2)] bg-white px-5 py-2.5 text-[0.875rem] font-semibold text-[#0a3450] transition-colors hover:border-[rgba(13,67,102,0.35)]"
+            >
+              For investors & partners
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+
+          <TeamGridShuffled />
+        </div>
+      </section>
+
+      <section className="pb-24 pt-20">
         <div className="mx-auto grid max-w-[1100px] gap-12 px-8 lg:grid-cols-2 lg:items-start">
           <div>
             <h2 className="text-xl font-semibold text-[#0a3450]">The lab</h2>

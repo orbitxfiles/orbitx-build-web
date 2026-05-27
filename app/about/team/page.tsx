@@ -1,11 +1,11 @@
-import { TeamDetailPageContent } from "@/components/about/team-detail-page";
+import { InvestorTeamPageContent } from "@/components/about/investor-team-page";
 
 export const metadata = {
-  title: "Team",
+  title: "Team — Investors",
   description:
-    "Meet the OrbitX team — how we built the lab and full builder profiles.",
+    "OrbitX company overview for investors and partners — thesis, traction, and roadmap.",
 };
 
-export default function TeamPage() {
-  return <TeamDetailPageContent />;
+export default function TeamInvestorPage() {
+  return <InvestorTeamPageContent />;
 }

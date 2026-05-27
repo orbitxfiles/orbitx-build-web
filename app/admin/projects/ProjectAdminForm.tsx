@@ -263,37 +263,40 @@ export function ProjectAdminForm({
 
   if (loading) {
     return (
-      <div className="mx-auto max-w-3xl px-5 py-10">
-        <p className="text-sm text-[var(--text-muted)]">Loading…</p>
+      <div className="max-w-4xl">
+        <p className="text-sm text-[#888]">Loading…</p>
       </div>
     );
   }
 
   return (
-    <div className="mx-auto max-w-4xl px-5 py-10 md:px-8">
-      <h1 className="text-[1.6rem] font-semibold text-[var(--text-strong)]">
-        {mode === "create" ? "New Project" : "Edit Project"}
+    <div className="max-w-4xl">
+      <p className="text-[11px] font-medium uppercase tracking-[0.14em] text-[#999]">
+        Project builder
+      </p>
+      <h1 className="mt-2 text-xl font-semibold tracking-tight text-[#111]">
+        {mode === "create" ? "New project" : "Edit project"}
       </h1>
-      <p className="mt-2 text-sm text-[var(--text-muted)]">
+      <p className="mt-2 text-[13px] text-[#666]">
         Paste a JWT token to submit changes.
       </p>
 
       {tokenError ? (
-        <div className="mt-4 rounded-md border border-red-500/30 bg-red-500/10 p-3 text-sm text-red-200">
+        <div className="mt-4 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-800">
           {tokenError}
         </div>
       ) : null}
 
       {themesError ? (
-        <div className="mt-4 rounded-md border border-red-500/30 bg-red-500/10 p-3 text-sm text-red-200">
+        <div className="mt-4 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-800">
           {themesError}
         </div>
       ) : null}
 
       <form onSubmit={handleSubmit} className="mt-8 space-y-10">
         {/* Basic Info */}
-        <section className="rounded-[14px] border border-[var(--border)] bg-[var(--bg-card)] p-6 shadow-[var(--shadow-card)]">
-          <h2 className="text-sm font-semibold text-[var(--text-strong)]">
+        <section className="rounded-lg border border-[#e8eaed] bg-white p-6">
+          <h2 className="text-sm font-semibold text-[#111]">
             Basic Info
           </h2>
 
