@@ -293,7 +293,7 @@ export function ProjectAdminForm({
 
           <div className="mt-5 grid gap-4 md:grid-cols-2">
             <label className="space-y-1">
-              <span className="text-xs font-semibold text-[var(--text-muted)]">
+              <span className="text-xs font-semibold text-[#555]">
                 Title *
               </span>
               <input
@@ -303,15 +303,15 @@ export function ProjectAdminForm({
                   setField("title", v);
                   if (!slugManuallyEdited) setField("slug", slugify(v));
                 }}
-                className="h-10 w-full rounded-md border border-[var(--border)] bg-[var(--bg)] px-3 text-sm"
+                className="h-10 w-full rounded-md border border-[#d5dbe1] bg-white px-3 text-sm text-black"
               />
-              <span className="text-[11px] text-[var(--text-muted)]">
+              <span className="text-[11px] text-[#555]">
                 {titleCharCount}/255
               </span>
             </label>
 
             <label className="space-y-1">
-              <span className="text-xs font-semibold text-[var(--text-muted)]">
+              <span className="text-xs font-semibold text-[#555]">
                 Slug *
               </span>
               <input
@@ -320,9 +320,9 @@ export function ProjectAdminForm({
                   setSlugManuallyEdited(true);
                   setField("slug", slugify(ev.target.value));
                 }}
-                className="h-10 w-full rounded-md border border-[var(--border)] bg-[var(--bg)] px-3 text-sm"
+                className="h-10 w-full rounded-md border border-[#d5dbe1] bg-white px-3 text-sm text-black"
               />
-              <span className="text-[11px] text-[var(--text-muted)]">
+              <span className="text-[11px] text-[#555]">
                 {slugCharCount} chars
               </span>
             </label>
@@ -330,27 +330,27 @@ export function ProjectAdminForm({
 
           <div className="mt-4 grid gap-4 md:grid-cols-2">
             <label className="space-y-1 md:col-span-2">
-              <span className="text-xs font-semibold text-[var(--text-muted)]">
+              <span className="text-xs font-semibold text-[#555]">
                 Tagline * (max 120)
               </span>
               <input
                 value={form.tagline}
                 onChange={(ev) => setField("tagline", ev.target.value)}
-                className="h-10 w-full rounded-md border border-[var(--border)] bg-[var(--bg)] px-3 text-sm"
+                className="h-10 w-full rounded-md border border-[#d5dbe1] bg-white px-3 text-sm text-black"
               />
-              <span className="text-[11px] text-[var(--text-muted)]">
+              <span className="text-[11px] text-[#555]">
                 {taglineCharCount}/120
               </span>
             </label>
 
             <label className="space-y-1">
-              <span className="text-xs font-semibold text-[var(--text-muted)]">
+              <span className="text-xs font-semibold text-[#555]">
                 Status *
               </span>
               <select
                 value={form.status}
                 onChange={(ev) => setField("status", ev.target.value as ProjectStatus)}
-                className="h-10 w-full rounded-md border border-[var(--border)] bg-[var(--bg)] px-3 text-sm"
+                className="h-10 w-full rounded-md border border-[#d5dbe1] bg-white px-3 text-sm text-black"
               >
                 <option value="planning">planning</option>
                 <option value="building">building</option>
@@ -360,7 +360,7 @@ export function ProjectAdminForm({
             </label>
 
             <label className="space-y-1">
-              <span className="text-xs font-semibold text-[var(--text-muted)]">
+              <span className="text-xs font-semibold text-[#555]">
                 Visibility *
               </span>
               <select
@@ -368,7 +368,7 @@ export function ProjectAdminForm({
                 onChange={(ev) =>
                   setField("visibility", ev.target.value as ProjectVisibility)
                 }
-                className="h-10 w-full rounded-md border border-[var(--border)] bg-[var(--bg)] px-3 text-sm"
+                className="h-10 w-full rounded-md border border-[#d5dbe1] bg-white px-3 text-sm text-black"
               >
                 <option value="public">public</option>
                 <option value="unlisted">unlisted</option>
@@ -379,24 +379,24 @@ export function ProjectAdminForm({
 
           <div className="mt-4 grid gap-4 md:grid-cols-3">
             <label className="space-y-1 md:col-span-1">
-              <span className="text-xs font-semibold text-[var(--text-muted)]">
+              <span className="text-xs font-semibold text-[#555]">
                 Accent Color
               </span>
               <input
                 type="color"
                 value={form.accent_color}
                 onChange={(ev) => setField("accent_color", ev.target.value)}
-                className="h-10 w-full rounded-md border border-[var(--border)] bg-[var(--bg)]"
+                className="h-10 w-full rounded-md border border-[#d5dbe1] bg-white text-black"
               />
               <input
                 value={form.accent_color}
                 onChange={(ev) => setField("accent_color", ev.target.value)}
-                className="h-10 w-full rounded-md border border-[var(--border)] bg-[var(--bg)] px-3 text-sm"
+                className="h-10 w-full rounded-md border border-[#d5dbe1] bg-white px-3 text-sm text-black"
               />
             </label>
 
             <label className="space-y-1 md:col-span-1">
-              <span className="text-xs font-semibold text-[var(--text-muted)]">
+              <span className="text-xs font-semibold text-[#555]">
                 Icon Label (max 2)
               </span>
               <input
@@ -407,13 +407,13 @@ export function ProjectAdminForm({
                     ev.target.value.trim().slice(0, 2) || null
                   )
                 }
-                className="h-10 w-full rounded-md border border-[var(--border)] bg-[var(--bg)] px-3 text-sm"
+                className="h-10 w-full rounded-md border border-[#d5dbe1] bg-white px-3 text-sm text-black"
                 placeholder="e.g. PX"
               />
             </label>
 
             <label className="space-y-1 md:col-span-1">
-              <span className="text-xs font-semibold text-[var(--text-muted)]">
+              <span className="text-xs font-semibold text-[#555]">
                 Theme
               </span>
               <select
@@ -424,7 +424,7 @@ export function ProjectAdminForm({
                     ev.target.value ? Number(ev.target.value) : null
                   )
                 }
-                className="h-10 w-full rounded-md border border-[var(--border)] bg-[var(--bg)] px-3 text-sm"
+                className="h-10 w-full rounded-md border border-[#d5dbe1] bg-white px-3 text-sm text-black"
               >
                 <option value="">(none)</option>
                 {themes.map((t) => (
@@ -443,20 +443,20 @@ export function ProjectAdminForm({
               checked={form.is_featured}
               onChange={(ev) => setField("is_featured", ev.target.checked)}
             />
-            <label htmlFor="isFeatured" className="text-sm text-[var(--text-muted)]">
+            <label htmlFor="isFeatured" className="text-sm text-[#555]">
               Featured
             </label>
           </div>
 
           <div className="mt-4">
             <label className="space-y-1">
-              <span className="text-xs font-semibold text-[var(--text-muted)]">
+              <span className="text-xs font-semibold text-[#555]">
                 Featured Article IDs (comma-separated)
               </span>
               <input
                 value={featuredIdsText}
                 onChange={(ev) => setFeaturedIdsText(ev.target.value)}
-                className="h-10 w-full rounded-md border border-[var(--border)] bg-[var(--bg)] px-3 text-sm"
+                className="h-10 w-full rounded-md border border-[#d5dbe1] bg-white px-3 text-sm text-black"
                 placeholder="e.g. 1, 2, 3"
               />
             </label>
@@ -465,39 +465,39 @@ export function ProjectAdminForm({
 
         {/* Content */}
         <section className="rounded-[14px] border border-[var(--border)] bg-[var(--bg-card)] p-6 shadow-[var(--shadow-card)]">
-          <h2 className="text-sm font-semibold text-[var(--text-strong)]">Content</h2>
+          <h2 className="text-sm font-semibold text-[#111]">Content</h2>
 
           <div className="mt-5 space-y-4">
             <label className="space-y-2">
-              <span className="text-xs font-semibold text-[var(--text-muted)]">
+              <span className="text-xs font-semibold text-[#555]">
                 Problem Statement *
               </span>
               <textarea
                 value={form.problem_statement}
                 onChange={(ev) => setField("problem_statement", ev.target.value)}
-                className="min-h-[120px] w-full rounded-md border border-[var(--border)] bg-[var(--bg)] p-3 text-sm"
+                className="min-h-[120px] w-full rounded-md border border-[#d5dbe1] bg-white p-3 text-sm text-black"
               />
             </label>
 
             <label className="space-y-2">
-              <span className="text-xs font-semibold text-[var(--text-muted)]">
+              <span className="text-xs font-semibold text-[#555]">
                 Architecture Overview *
               </span>
               <textarea
                 value={form.architecture_overview}
                 onChange={(ev) => setField("architecture_overview", ev.target.value)}
-                className="min-h-[90px] w-full rounded-md border border-[var(--border)] bg-[var(--bg)] p-3 text-sm"
+                className="min-h-[90px] w-full rounded-md border border-[#d5dbe1] bg-white p-3 text-sm text-black"
               />
             </label>
 
             <label className="space-y-2">
               <div className="flex items-center justify-between gap-4">
-                <span className="text-xs font-semibold text-[var(--text-muted)]">
+                <span className="text-xs font-semibold text-[#555]">
                   Architecture Mermaid (graph)
                 </span>
                 <button
                   type="button"
-                  className="rounded-md border border-[var(--border)] bg-[var(--bg)] px-3 py-2 text-sm text-[var(--text-primary)] hover:bg-[var(--bg-hover)]"
+                  className="rounded-md border border-[#d5dbe1] bg-white text-black px-3 py-2 text-sm text-[#111] hover:bg-[var(--bg-hover)]"
                   onClick={() => setShowPreview(true)}
                 >
                   Preview
@@ -506,7 +506,7 @@ export function ProjectAdminForm({
               <textarea
                 value={form.architecture_mermaid}
                 onChange={(ev) => setField("architecture_mermaid", ev.target.value)}
-                className="min-h-[180px] w-full rounded-md border border-[var(--border)] bg-[var(--bg)] p-3 font-mono text-sm"
+                className="min-h-[180px] w-full rounded-md border border-[#d5dbe1] bg-white text-black p-3 font-mono text-sm"
               />
             </label>
           </div>
@@ -523,12 +523,12 @@ export function ProjectAdminForm({
                 onClick={(e) => e.stopPropagation()}
               >
                 <div className="flex items-center justify-between gap-4 border-b border-[var(--border)] p-4">
-                  <h3 className="text-sm font-semibold text-[var(--text-strong)]">
+                  <h3 className="text-sm font-semibold text-[#111]">
                     Mermaid Preview
                   </h3>
                   <button
                     type="button"
-                    className="rounded-md border border-[var(--border)] bg-[var(--bg)] px-3 py-2 text-sm"
+                    className="rounded-md border border-[#d5dbe1] bg-white text-black px-3 py-2 text-sm"
                     onClick={() => setShowPreview(false)}
                   >
                     Close
@@ -548,24 +548,24 @@ export function ProjectAdminForm({
 
         {/* Structured Data */}
         <section className="rounded-[14px] border border-[var(--border)] bg-[var(--bg-card)] p-6 shadow-[var(--shadow-card)]">
-          <h2 className="text-sm font-semibold text-[var(--text-strong)]">
+          <h2 className="text-sm font-semibold text-[#111]">
             Structured Data
           </h2>
 
           <div className="mt-5 space-y-8">
             {/* Tech stack */}
             <div>
-              <h3 className="text-sm font-semibold text-[var(--text-strong)]">Tech Stack</h3>
+              <h3 className="text-sm font-semibold text-[#111]">Tech Stack</h3>
               <div className="mt-4 flex flex-wrap gap-2">
                 {form.tech_stack.map((t, idx) => (
                   <span
                     key={`${t}-${idx}`}
-                    className="flex items-center gap-2 rounded-md border border-[var(--border)] bg-[var(--bg)] px-2 py-1 text-xs"
+                    className="flex items-center gap-2 rounded-md border border-[#d5dbe1] bg-white text-black px-2 py-1 text-xs"
                   >
                     <span style={{ color: form.accent_color }}>{t}</span>
                     <button
                       type="button"
-                      className="text-[10px] text-[var(--text-muted)] hover:text-[var(--text-primary)]"
+                      className="text-[10px] text-[#555] hover:text-[#111]"
                       onClick={() =>
                         setField(
                           "tech_stack",
@@ -578,7 +578,7 @@ export function ProjectAdminForm({
                   </span>
                 ))}
                 {form.tech_stack.length === 0 ? (
-                  <span className="text-xs text-[var(--text-muted)]">No tech stack yet.</span>
+                  <span className="text-xs text-[#555]">No tech stack yet.</span>
                 ) : null}
               </div>
 
@@ -586,7 +586,7 @@ export function ProjectAdminForm({
                 <input
                   type="text"
                   placeholder="Add tech & press Enter"
-                  className="h-10 flex-1 rounded-md border border-[var(--border)] bg-[var(--bg)] px-3 text-sm"
+                  className="h-10 flex-1 rounded-md border border-[#d5dbe1] bg-white px-3 text-sm text-black"
                   onKeyDown={(ev) => {
                     if (ev.key !== "Enter") return;
                     ev.preventDefault();
@@ -604,13 +604,13 @@ export function ProjectAdminForm({
 
             {/* Core Features */}
             <div>
-              <h3 className="text-sm font-semibold text-[var(--text-strong)]">Core Features</h3>
+              <h3 className="text-sm font-semibold text-[#111]">Core Features</h3>
               <div className="mt-4 space-y-4">
                 {form.core_features.map((f, idx) => (
                   <div key={`${f.title}-${idx}`} className="rounded-md border border-[var(--border)] p-4">
                     <div className="grid gap-4 md:grid-cols-2">
                       <label className="space-y-1">
-                        <span className="text-xs font-semibold text-[var(--text-muted)]">Title *</span>
+                        <span className="text-xs font-semibold text-[#555]">Title *</span>
                         <input
                           value={f.title}
                           onChange={(ev) => {
@@ -622,11 +622,11 @@ export function ProjectAdminForm({
                               )
                             );
                           }}
-                          className="h-10 w-full rounded-md border border-[var(--border)] bg-[var(--bg)] px-3 text-sm"
+                          className="h-10 w-full rounded-md border border-[#d5dbe1] bg-white px-3 text-sm text-black"
                         />
                       </label>
                       <label className="space-y-1">
-                        <span className="text-xs font-semibold text-[var(--text-muted)]">
+                        <span className="text-xs font-semibold text-[#555]">
                           Description
                         </span>
                         <input
@@ -640,14 +640,14 @@ export function ProjectAdminForm({
                               )
                             );
                           }}
-                          className="h-10 w-full rounded-md border border-[var(--border)] bg-[var(--bg)] px-3 text-sm"
+                          className="h-10 w-full rounded-md border border-[#d5dbe1] bg-white px-3 text-sm text-black"
                         />
                       </label>
                     </div>
                     <div className="mt-3 flex justify-end">
                       <button
                         type="button"
-                        className="rounded-md border border-[var(--border)] bg-[var(--bg)] px-3 py-2 text-sm text-[var(--text-primary)]"
+                        className="rounded-md border border-[#d5dbe1] bg-white text-black px-3 py-2 text-sm text-[#111]"
                         onClick={() =>
                           setField(
                             "core_features",
@@ -665,7 +665,7 @@ export function ProjectAdminForm({
               <div className="mt-4">
                 <button
                   type="button"
-                  className="rounded-md border border-[var(--border)] bg-[var(--bg)] px-3 py-2 text-sm text-[var(--text-primary)]"
+                  className="rounded-md border border-[#d5dbe1] bg-white text-black px-3 py-2 text-sm text-[#111]"
                   onClick={() =>
                     setField("core_features", [
                       ...form.core_features,
@@ -680,13 +680,13 @@ export function ProjectAdminForm({
 
             {/* Roadmap */}
             <div>
-              <h3 className="text-sm font-semibold text-[var(--text-strong)]">Roadmap</h3>
+              <h3 className="text-sm font-semibold text-[#111]">Roadmap</h3>
               <div className="mt-4 space-y-4">
                 {form.roadmap.map((r, idx) => (
                   <div key={`${r.milestone}-${idx}`} className="rounded-md border border-[var(--border)] p-4">
                     <div className="grid gap-4 md:grid-cols-3">
                       <label className="space-y-1 md:col-span-2">
-                        <span className="text-xs font-semibold text-[var(--text-muted)]">Milestone *</span>
+                        <span className="text-xs font-semibold text-[#555]">Milestone *</span>
                         <input
                           value={r.milestone}
                           onChange={(ev) => {
@@ -698,11 +698,11 @@ export function ProjectAdminForm({
                               )
                             );
                           }}
-                          className="h-10 w-full rounded-md border border-[var(--border)] bg-[var(--bg)] px-3 text-sm"
+                          className="h-10 w-full rounded-md border border-[#d5dbe1] bg-white px-3 text-sm text-black"
                         />
                       </label>
                       <label className="space-y-1">
-                        <span className="text-xs font-semibold text-[var(--text-muted)]">
+                        <span className="text-xs font-semibold text-[#555]">
                           Status *
                         </span>
                         <select
@@ -716,7 +716,7 @@ export function ProjectAdminForm({
                               )
                             );
                           }}
-                          className="h-10 w-full rounded-md border border-[var(--border)] bg-[var(--bg)] px-3 text-sm"
+                          className="h-10 w-full rounded-md border border-[#d5dbe1] bg-white px-3 text-sm text-black"
                         >
                           <option value="planned">planned</option>
                           <option value="in_progress">in_progress</option>
@@ -724,7 +724,7 @@ export function ProjectAdminForm({
                         </select>
                       </label>
                       <label className="space-y-1">
-                        <span className="text-xs font-semibold text-[var(--text-muted)]">
+                        <span className="text-xs font-semibold text-[#555]">
                           Date
                         </span>
                         <input
@@ -738,14 +738,14 @@ export function ProjectAdminForm({
                               )
                             );
                           }}
-                          className="h-10 w-full rounded-md border border-[var(--border)] bg-[var(--bg)] px-3 text-sm"
+                          className="h-10 w-full rounded-md border border-[#d5dbe1] bg-white px-3 text-sm text-black"
                         />
                       </label>
                     </div>
                     <div className="mt-3 flex justify-end">
                       <button
                         type="button"
-                        className="rounded-md border border-[var(--border)] bg-[var(--bg)] px-3 py-2 text-sm text-[var(--text-primary)]"
+                        className="rounded-md border border-[#d5dbe1] bg-white text-black px-3 py-2 text-sm text-[#111]"
                         onClick={() =>
                           setField(
                             "roadmap",
@@ -762,7 +762,7 @@ export function ProjectAdminForm({
               <div className="mt-4">
                 <button
                   type="button"
-                  className="rounded-md border border-[var(--border)] bg-[var(--bg)] px-3 py-2 text-sm text-[var(--text-primary)]"
+                  className="rounded-md border border-[#d5dbe1] bg-white text-black px-3 py-2 text-sm text-[#111]"
                   onClick={() =>
                     setField("roadmap", [
                       ...form.roadmap,
@@ -777,7 +777,7 @@ export function ProjectAdminForm({
 
             {/* Lessons Learned */}
             <div>
-              <h3 className="text-sm font-semibold text-[var(--text-strong)]">
+              <h3 className="text-sm font-semibold text-[#111]">
                 Lessons Learned
               </h3>
               <div className="mt-4 space-y-4">
@@ -785,7 +785,7 @@ export function ProjectAdminForm({
                   <div key={`${l.title}-${idx}`} className="rounded-md border border-[var(--border)] p-4">
                     <div className="grid gap-4 md:grid-cols-2">
                       <label className="space-y-1">
-                        <span className="text-xs font-semibold text-[var(--text-muted)]">
+                        <span className="text-xs font-semibold text-[#555]">
                           Title *
                         </span>
                         <input
@@ -799,11 +799,11 @@ export function ProjectAdminForm({
                               )
                             );
                           }}
-                          className="h-10 w-full rounded-md border border-[var(--border)] bg-[var(--bg)] px-3 text-sm"
+                          className="h-10 w-full rounded-md border border-[#d5dbe1] bg-white px-3 text-sm text-black"
                         />
                       </label>
                       <label className="space-y-1">
-                        <span className="text-xs font-semibold text-[var(--text-muted)]">
+                        <span className="text-xs font-semibold text-[#555]">
                           Body *
                         </span>
                         <textarea
@@ -817,14 +817,14 @@ export function ProjectAdminForm({
                               )
                             );
                           }}
-                          className="min-h-[110px] w-full rounded-md border border-[var(--border)] bg-[var(--bg)] p-3 text-sm"
+                          className="min-h-[110px] w-full rounded-md border border-[#d5dbe1] bg-white p-3 text-sm text-black"
                         />
                       </label>
                     </div>
                     <div className="mt-3 flex justify-end">
                       <button
                         type="button"
-                        className="rounded-md border border-[var(--border)] bg-[var(--bg)] px-3 py-2 text-sm text-[var(--text-primary)]"
+                        className="rounded-md border border-[#d5dbe1] bg-white text-black px-3 py-2 text-sm text-[#111]"
                         onClick={() =>
                           setField(
                             "lessons_learned",
@@ -841,7 +841,7 @@ export function ProjectAdminForm({
               <div className="mt-4">
                 <button
                   type="button"
-                  className="rounded-md border border-[var(--border)] bg-[var(--bg)] px-3 py-2 text-sm text-[var(--text-primary)]"
+                  className="rounded-md border border-[#d5dbe1] bg-white text-black px-3 py-2 text-sm text-[#111]"
                   onClick={() =>
                     setField("lessons_learned", [
                       ...form.lessons_learned,
@@ -858,34 +858,34 @@ export function ProjectAdminForm({
 
         {/* Media & Links */}
         <section className="rounded-[14px] border border-[var(--border)] bg-[var(--bg-card)] p-6 shadow-[var(--shadow-card)]">
-          <h2 className="text-sm font-semibold text-[var(--text-strong)]">Media & Links</h2>
+          <h2 className="text-sm font-semibold text-[#111]">Media & Links</h2>
 
           <div className="mt-5 grid gap-4 md:grid-cols-2">
             <label className="space-y-1 md:col-span-2">
-              <span className="text-xs font-semibold text-[var(--text-muted)]">
+              <span className="text-xs font-semibold text-[#555]">
                 Thumbnail URL
               </span>
               <input
                 value={form.thumbnail ?? ""}
                 onChange={(ev) => setField("thumbnail", ev.target.value || null)}
-                className="h-10 w-full rounded-md border border-[var(--border)] bg-[var(--bg)] px-3 text-sm"
+                className="h-10 w-full rounded-md border border-[#d5dbe1] bg-white px-3 text-sm text-black"
                 placeholder="https://..."
               />
             </label>
             <label className="space-y-1 md:col-span-2">
-              <span className="text-xs font-semibold text-[var(--text-muted)]">
+              <span className="text-xs font-semibold text-[#555]">
                 Banner Image URL
               </span>
               <input
                 value={form.banner_image ?? ""}
                 onChange={(ev) => setField("banner_image", ev.target.value || null)}
-                className="h-10 w-full rounded-md border border-[var(--border)] bg-[var(--bg)] px-3 text-sm"
+                className="h-10 w-full rounded-md border border-[#d5dbe1] bg-white px-3 text-sm text-black"
                 placeholder="https://..."
               />
             </label>
 
             <label className="space-y-1">
-              <span className="text-xs font-semibold text-[var(--text-muted)]">
+              <span className="text-xs font-semibold text-[#555]">
                 Walkthrough URL
               </span>
               <input
@@ -893,12 +893,12 @@ export function ProjectAdminForm({
                 onChange={(ev) =>
                   setField("walkthrough_url", ev.target.value || null)
                 }
-                className="h-10 w-full rounded-md border border-[var(--border)] bg-[var(--bg)] px-3 text-sm"
+                className="h-10 w-full rounded-md border border-[#d5dbe1] bg-white px-3 text-sm text-black"
                 placeholder="https://..."
               />
             </label>
             <label className="space-y-1">
-              <span className="text-xs font-semibold text-[var(--text-muted)]">
+              <span className="text-xs font-semibold text-[#555]">
                 Walkthrough Duration
               </span>
               <input
@@ -906,31 +906,31 @@ export function ProjectAdminForm({
                 onChange={(ev) =>
                   setField("walkthrough_duration", ev.target.value || null)
                 }
-                className="h-10 w-full rounded-md border border-[var(--border)] bg-[var(--bg)] px-3 text-sm"
+                className="h-10 w-full rounded-md border border-[#d5dbe1] bg-white px-3 text-sm text-black"
                 placeholder="e.g. 12 min"
               />
             </label>
 
             <label className="space-y-1">
-              <span className="text-xs font-semibold text-[var(--text-muted)]">GitHub URL</span>
+              <span className="text-xs font-semibold text-[#555]">GitHub URL</span>
               <input
                 value={form.github_url ?? ""}
                 onChange={(ev) => setField("github_url", ev.target.value || null)}
-                className="h-10 w-full rounded-md border border-[var(--border)] bg-[var(--bg)] px-3 text-sm"
+                className="h-10 w-full rounded-md border border-[#d5dbe1] bg-white px-3 text-sm text-black"
                 placeholder="https://github.com/..."
               />
             </label>
             <label className="space-y-1">
-              <span className="text-xs font-semibold text-[var(--text-muted)]">Demo URL</span>
+              <span className="text-xs font-semibold text-[#555]">Demo URL</span>
               <input
                 value={form.demo_url ?? ""}
                 onChange={(ev) => setField("demo_url", ev.target.value || null)}
-                className="h-10 w-full rounded-md border border-[var(--border)] bg-[var(--bg)] px-3 text-sm"
+                className="h-10 w-full rounded-md border border-[#d5dbe1] bg-white px-3 text-sm text-black"
                 placeholder="https://..."
               />
             </label>
             <label className="space-y-1 md:col-span-2">
-              <span className="text-xs font-semibold text-[var(--text-muted)]">
+              <span className="text-xs font-semibold text-[#555]">
                 Build Logs URL
               </span>
               <input
@@ -938,7 +938,7 @@ export function ProjectAdminForm({
                 onChange={(ev) =>
                   setField("build_logs_url", ev.target.value || null)
                 }
-                className="h-10 w-full rounded-md border border-[var(--border)] bg-[var(--bg)] px-3 text-sm"
+                className="h-10 w-full rounded-md border border-[#d5dbe1] bg-white px-3 text-sm text-black"
                 placeholder="https://..."
               />
             </label>
