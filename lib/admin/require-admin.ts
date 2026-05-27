@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { getMe } from "@/lib/api/auth";
+import { getMe, isAdminRole } from "@/lib/api/auth";
 import { getAccessToken } from "@/lib/admin/session";
 
 export type AdminUser = {
@@ -17,7 +17,7 @@ export async function requireAdminUser(): Promise<AdminUser> {
 
   try {
     const me = await getMe(token);
-    if (me.role !== "admin") {
+    if (!isAdminRole(me.role)) {
       redirect("/admin/login?error=forbidden");
     }
     return me;

@@ -2,7 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { apiFetch } from "@/lib/api/client";
-import { getMe, login } from "@/lib/api/auth";
+import { AuthError, getMe, isAdminRole, login } from "@/lib/api/auth";
 import {
   clearAuthCookies,
   getAccessToken,
@@ -29,13 +29,34 @@ export async function adminLoginAction(
     const tokens = await login(email, password);
     const me = await getMe(tokens.access_token);
 
-    if (me.role !== "admin") {
+    if (!isAdminRole(me.role)) {
       return { error: "This account does not have admin access." };
     }
 
     await setAuthCookies(tokens);
-  } catch {
-    return { error: "Invalid email or password." };
+  } catch (err: unknown) {
+    if (err instanceof AuthError) {
+      if (err.status >= 500) {
+        return {
+          error:
+            "API server error during login. Ensure Render has DATABASE_URL and SECRET_KEY set, then redeploy the API.",
+        };
+      }
+      return { error: "Invalid email or password." };
+    }
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
+    if (apiUrl.includes("localhost")) {
+      return {
+        error:
+          "Frontend is pointing to localhost API. Set NEXT_PUBLIC_API_URL on Vercel to your Render URL.",
+      };
+    }
+    return {
+      error:
+        err instanceof Error
+          ? err.message
+          : "Could not reach the API. Check NEXT_PUBLIC_API_URL and CORS_ORIGINS.",
+    };
   }
 
   redirect(next.startsWith("/admin") ? next : "/admin");
@@ -58,7 +79,7 @@ export async function saveProjectAction(input: {
 
   try {
     const me = await getMe(token);
-    if (me.role !== "admin") {
+    if (!isAdminRole(me.role)) {
       return { error: "Insufficient permissions." };
     }
   } catch {
