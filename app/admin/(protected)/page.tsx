@@ -130,10 +130,10 @@ export default async function AdminPage() {
       <p className="text-[11px] font-medium uppercase tracking-[0.14em] text-[#999]">
         Admin
       </p>
-      <h1 className="mt-2 text-2xl font-semibold tracking-tight text-white">
+      <h1 className="mt-2 text-2xl font-semibold tracking-tight text-[#111]">
         Content dashboard
       </h1>
-      <p className="mt-2 max-w-lg text-[14px] leading-relaxed text-[#b9d2e2]">
+      <p className="mt-2 max-w-lg text-[14px] leading-relaxed text-[#555]">
         Everything currently stored in backend APIs. Use this page to verify what
         is live in projects, articles, taxonomy, and media.
       </p>
@@ -151,17 +151,17 @@ export default async function AdminPage() {
         {ACTIONS.map((action) => {
           const Icon = action.icon;
           const className =
-            "group flex flex-col rounded-lg border border-white/15 bg-[#18364c]/70 p-5 transition-all hover:border-[#4e89ad] hover:bg-[#1d3f57]";
+            "group flex flex-col rounded-lg border border-[#e5e7eb] bg-white p-5 transition-all hover:border-[#d1d5db] hover:bg-[#fafafa]";
           const inner = (
             <>
-              <Icon className="h-4 w-4 text-[#95bcd2] group-hover:text-[#dcecf6]" />
-              <p className="mt-4 text-[14px] font-medium text-white">
+              <Icon className="h-4 w-4 text-[#666] group-hover:text-[#111]" />
+              <p className="mt-4 text-[14px] font-medium text-[#111]">
                 {action.title}
               </p>
-              <p className="mt-1 text-[12px] leading-relaxed text-[#b9d2e2]">
+              <p className="mt-1 text-[12px] leading-relaxed text-[#666]">
                 {action.description}
               </p>
-              <ArrowUpRight className="mt-4 h-3.5 w-3.5 text-[#95bcd2] group-hover:text-white" />
+              <ArrowUpRight className="mt-4 h-3.5 w-3.5 text-[#999] group-hover:text-[#111]" />
             </>
           );
           return action.external ? (
@@ -183,7 +183,7 @@ export default async function AdminPage() {
       </div>
 
       <Section title="Projects">
-        <div className="overflow-hidden rounded-lg border border-white/15 bg-white">
+        <div className="overflow-hidden rounded-lg border border-[#e5e7eb] bg-white">
           <table className="w-full text-left text-sm">
             <thead className="bg-[#f7f8fa] text-xs uppercase tracking-wide text-[#777]">
               <tr>
@@ -227,7 +227,7 @@ export default async function AdminPage() {
       </Section>
 
       <Section title="Articles">
-        <div className="overflow-hidden rounded-lg border border-white/15 bg-white">
+        <div className="overflow-hidden rounded-lg border border-[#e5e7eb] bg-white">
           <table className="w-full text-left text-sm">
             <thead className="bg-[#f7f8fa] text-xs uppercase tracking-wide text-[#777]">
               <tr>
@@ -336,7 +336,7 @@ export default async function AdminPage() {
                       {log.actor_email ?? "anonymous"}
                     </td>
                     <td className="px-4 py-3">
-                      <span className="rounded-md bg-[#f0f5f8] px-2 py-1 text-xs font-semibold text-[#0a3450]">
+                      <span className="rounded-md bg-[#f3f4f6] px-2 py-1 text-xs font-semibold text-[#0a3450]">
                         {log.action}
                       </span>
                     </td>
@@ -360,9 +360,9 @@ export default async function AdminPage() {
 
 function MetricCard({ label, value }: { label: string; value: number }) {
   return (
-    <div className="rounded-lg border border-white/15 bg-[#18364c]/70 px-4 py-3">
-      <p className="text-[11px] uppercase tracking-wide text-[#9ac0d7]">{label}</p>
-      <p className="mt-1 text-xl font-semibold text-white">{value}</p>
+    <div className="rounded-lg border border-[#e5e7eb] bg-white px-4 py-3">
+      <p className="text-[11px] uppercase tracking-wide text-[#666]">{label}</p>
+      <p className="mt-1 text-xl font-semibold text-[#111]">{value}</p>
     </div>
   );
 }
@@ -370,7 +370,7 @@ function MetricCard({ label, value }: { label: string; value: number }) {
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <section className="mt-10">
-      <h2 className="mb-3 text-base font-semibold text-[#dcecf6]">{title}</h2>
+      <h2 className="mb-3 text-base font-semibold text-[#111]">{title}</h2>
       {children}
     </section>
   );
@@ -405,7 +405,7 @@ function EntityTable<T extends { id: number }>({
   deleteAction: (formData: FormData) => Promise<void>;
 }) {
   return (
-    <div className="overflow-hidden rounded-lg border border-white/15 bg-white">
+    <div className="overflow-hidden rounded-lg border border-[#e5e7eb] bg-white">
       <table className="w-full text-left text-sm">
         <thead className="bg-[#f7f8fa] text-xs uppercase tracking-wide text-[#777]">
           <tr>
