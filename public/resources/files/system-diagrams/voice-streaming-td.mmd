@@ -1,0 +1,14 @@
+graph TD
+  C[Web Client]
+  G[API Gateway]
+  STT[Deepgram STT]
+  LLM[Gemini Flash]
+  TTS[ElevenLabs TTS]
+  R[(Redis Session)]
+  C --> G
+  G --> STT
+  STT --> LLM
+  LLM --> TTS
+  TTS --> G
+  G --> C
+  G --> R

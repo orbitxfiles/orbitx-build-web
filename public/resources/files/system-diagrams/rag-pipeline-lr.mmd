@@ -1,0 +1,11 @@
+graph LR
+  Q[User Query]
+  E[Embed Query]
+  V[(Vector Store)]
+  R[Reranker]
+  L[LLM]
+  A[Answer]
+  Q --> E --> V --> R --> L --> A
+  OTEL[OpenTelemetry] -.-> E
+  OTEL -.-> V
+  OTEL -.-> L

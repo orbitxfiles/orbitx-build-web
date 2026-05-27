@@ -1,0 +1,1 @@
+﻿Score 1-5 on: groundedness, completeness, tone. Return JSON only.

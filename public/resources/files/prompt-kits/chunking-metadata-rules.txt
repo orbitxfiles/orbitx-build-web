@@ -1,0 +1,1 @@
+﻿Each chunk must include: doc_type, section_path, tenant_id.
