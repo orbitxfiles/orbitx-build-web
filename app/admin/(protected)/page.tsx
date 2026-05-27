@@ -35,8 +35,8 @@ export default function AdminPage() {
         Admin
       </h1>
       <p className="mt-2 max-w-lg text-[14px] leading-relaxed text-[#666]">
-        Minimal tools for managing OrbitX projects. Use the project builder below
-        or the API docs with a JWT for articles and resources.
+        Signed-in admin tools for managing OrbitX projects. Sessions use secure
+        httpOnly cookies — no manual JWT paste.
       </p>
 
       <div className="mt-10 grid gap-3 sm:grid-cols-3">
@@ -72,22 +72,6 @@ export default function AdminPage() {
             </Link>
           );
         })}
-      </div>
-
-      <div className="mt-10 rounded-lg border border-[#e8eaed] bg-white p-5">
-        <p className="text-[12px] font-medium text-[#111]">API</p>
-        <p className="mt-1 text-[13px] text-[#666]">
-          Authenticate via{" "}
-          <a
-            href="http://localhost:8000/docs"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[#111] underline decoration-[#ccc] underline-offset-2 hover:decoration-[#999]"
-          >
-            FastAPI /docs
-          </a>{" "}
-          and paste your JWT in the project form when editing.
-        </p>
       </div>
     </div>
   );

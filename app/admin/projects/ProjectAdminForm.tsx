@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { DiagramRenderer } from "@/components/DiagramRenderer";
-import { apiFetch } from "@/lib/api/client";
+import { saveProjectAction } from "@/lib/admin/actions";
 import { getProject } from "@/lib/api/projects";
 import type { ProjectDetail } from "@/lib/types";
 import { getThemes } from "@/lib/api/themes";
@@ -84,8 +84,8 @@ export function ProjectAdminForm({
   slug?: string;
 }) {
   const router = useRouter();
-  const [token, setToken] = useState("");
-  const [tokenError, setTokenError] = useState<string | null>(null);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
 
   const [themes, setThemes] = useState<{ id: number; name: string }[]>([]);
   const [themesError, setThemesError] = useState<string | null>(null);
@@ -226,12 +226,8 @@ export function ProjectAdminForm({
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setTokenError(null);
-
-    if (!token.trim()) {
-      setTokenError("JWT token is required for admin operations.");
-      return;
-    }
+    setSubmitError(null);
+    setSubmitting(true);
 
     const payload: Record<string, unknown> = {
       ...form,
@@ -240,25 +236,20 @@ export function ProjectAdminForm({
         : [],
     };
 
-    try {
-      const method = mode === "create" ? "POST" : "PUT";
-      const path = mode === "create" ? "/projects" : `/projects/${form.slug}`;
+    const result = await saveProjectAction({
+      mode,
+      slug: form.slug,
+      payload,
+    });
 
-      await apiFetch<unknown>(path, {
-        method,
-        token,
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
+    setSubmitting(false);
 
-      router.push(`/projects/${form.slug}`);
-    } catch (err: unknown) {
-      setTokenError(
-        err instanceof Error ? err.message : "Failed to submit admin form."
-      );
+    if (result.error) {
+      setSubmitError(result.error);
+      return;
     }
+
+    router.push(`/projects/${result.slug ?? form.slug}`);
   }
 
   if (loading) {
@@ -278,12 +269,12 @@ export function ProjectAdminForm({
         {mode === "create" ? "New project" : "Edit project"}
       </h1>
       <p className="mt-2 text-[13px] text-[#666]">
-        Paste a JWT token to submit changes.
+        Changes are saved with your secure admin session.
       </p>
 
-      {tokenError ? (
+      {submitError ? (
         <div className="mt-4 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-800">
-          {tokenError}
+          {submitError}
         </div>
       ) : null}
 
@@ -954,30 +945,18 @@ export function ProjectAdminForm({
           </div>
         </section>
 
-        {/* Token + Submit */}
-        <section className="rounded-[14px] border border-[var(--border)] bg-[var(--bg-card)] p-6 shadow-[var(--shadow-card)]">
-          <h2 className="text-sm font-semibold text-[var(--text-strong)]">
-            Admin Authorization
-          </h2>
-          <div className="mt-4 space-y-2">
-            <label className="space-y-1">
-              <span className="text-xs font-semibold text-[var(--text-muted)]">
-                JWT Token *
-              </span>
-              <input
-                value={token}
-                onChange={(ev) => setToken(ev.target.value)}
-                className="h-10 w-full rounded-md border border-[var(--border)] bg-[var(--bg)] px-3 text-sm font-mono"
-                placeholder="Paste JWT token here"
-              />
-            </label>
-            <button
-              type="submit"
-              className="mt-2 w-full rounded-md bg-[var(--theme-primary)] px-4 py-3 text-sm font-semibold text-white hover:opacity-95"
-            >
-              {mode === "create" ? "Create Project" : "Save Changes"}
-            </button>
-          </div>
+        <section className="rounded-lg border border-[#e8eaed] bg-white p-6">
+          <button
+            type="submit"
+            disabled={submitting}
+            className="w-full rounded-md bg-[#0a3450] px-4 py-3 text-sm font-semibold text-white hover:bg-[#0d4366] disabled:opacity-60"
+          >
+            {submitting
+              ? "Saving…"
+              : mode === "create"
+                ? "Create Project"
+                : "Save Changes"}
+          </button>
         </section>
       </form>
     </div>

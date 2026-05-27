@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { adminLogoutAction } from "@/lib/admin/actions";
+import type { AdminUser } from "@/lib/admin/require-admin";
 
 const NAV = [
   { href: "/admin", label: "Overview", exact: true },
@@ -10,7 +12,13 @@ const NAV = [
   { href: "/admin/projects/orbitx-voice-pipeline/edit", label: "Edit demo" },
 ];
 
-export function AdminShell({ children }: { children: React.ReactNode }) {
+export function AdminShell({
+  user,
+  children,
+}: {
+  user: AdminUser;
+  children: React.ReactNode;
+}) {
   const pathname = usePathname();
 
   return (
@@ -46,12 +54,25 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
               })}
             </nav>
           </div>
-          <Link
-            href="/"
-            className="text-[12px] text-[#888] transition-colors hover:text-[#333]"
-          >
-            ← Site
-          </Link>
+          <div className="flex items-center gap-4">
+            <span className="hidden text-[12px] text-[#666] sm:inline">
+              {user.email}
+            </span>
+            <form action={adminLogoutAction}>
+              <button
+                type="submit"
+                className="text-[12px] font-medium text-[#888] transition-colors hover:text-[#333]"
+              >
+                Sign out
+              </button>
+            </form>
+            <Link
+              href="/"
+              className="text-[12px] text-[#888] transition-colors hover:text-[#333]"
+            >
+              ← Site
+            </Link>
+          </div>
         </div>
       </header>
       <main className="mx-auto max-w-6xl px-6 py-10">{children}</main>
