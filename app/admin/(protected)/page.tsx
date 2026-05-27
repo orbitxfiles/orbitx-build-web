@@ -6,6 +6,13 @@ import { getProjects } from "@/lib/api/projects";
 import { getCategories } from "@/lib/api/categories";
 import { getResources } from "@/lib/api/resources";
 import { getThemes } from "@/lib/api/themes";
+import {
+  deleteArticleAction,
+  deleteCategoryAction,
+  deleteResourceAction,
+  deleteThemeAction,
+  deleteVideoAction,
+} from "@/lib/admin/actions";
 import type {
   Article,
   PaginatedArticles,
@@ -176,7 +183,7 @@ export default async function AdminPage() {
       </div>
 
       <Section title="Projects">
-        <div className="overflow-hidden rounded-lg border border-[#e8eaed] bg-white">
+        <div className="overflow-hidden rounded-lg border border-white/15 bg-white">
           <table className="w-full text-left text-sm">
             <thead className="bg-[#f7f8fa] text-xs uppercase tracking-wide text-[#777]">
               <tr>
@@ -220,7 +227,7 @@ export default async function AdminPage() {
       </Section>
 
       <Section title="Articles">
-        <div className="overflow-hidden rounded-lg border border-[#e8eaed] bg-white">
+        <div className="overflow-hidden rounded-lg border border-white/15 bg-white">
           <table className="w-full text-left text-sm">
             <thead className="bg-[#f7f8fa] text-xs uppercase tracking-wide text-[#777]">
               <tr>
@@ -228,6 +235,7 @@ export default async function AdminPage() {
                 <th className="px-4 py-3">Published</th>
                 <th className="px-4 py-3">Visibility</th>
                 <th className="px-4 py-3">Updated</th>
+                <th className="px-4 py-3">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -241,6 +249,17 @@ export default async function AdminPage() {
                   <td className="px-4 py-3 text-[#666]">
                     {new Date(article.updated_at).toLocaleDateString()}
                   </td>
+                  <td className="px-4 py-3">
+                    <div className="flex items-center gap-3">
+                      <Link
+                        href={`/admin/articles/${article.id}/edit`}
+                        className="text-[#0a3450] hover:underline"
+                      >
+                        Edit
+                      </Link>
+                      <DeleteForm action={deleteArticleAction} id={article.id} />
+                    </div>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -248,13 +267,44 @@ export default async function AdminPage() {
         </div>
       </Section>
 
-      <Section title="Taxonomy & media">
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-          <SimpleList title="Categories" items={categories.map((c) => c.name)} />
-          <SimpleList title="Themes" items={themes.map((t) => t.name)} />
-          <SimpleList title="Resources" items={resources.map((r) => r.title)} />
-          <SimpleList title="Videos" items={videos.map((v) => v.title)} />
-        </div>
+      <Section title="Categories">
+        <EntityTable
+          rows={categories}
+          titleKey={(c) => c.name}
+          subtitleKey={(c) => c.slug}
+          editHref={(c) => `/admin/categories/${c.id}/edit`}
+          deleteAction={deleteCategoryAction}
+        />
+      </Section>
+
+      <Section title="Resources">
+        <EntityTable
+          rows={resources}
+          titleKey={(r) => r.title}
+          subtitleKey={(r) => r.type}
+          editHref={(r) => `/admin/resources/${r.id}/edit`}
+          deleteAction={deleteResourceAction}
+        />
+      </Section>
+
+      <Section title="Videos">
+        <EntityTable
+          rows={videos}
+          titleKey={(v) => v.title}
+          subtitleKey={(v) => v.platform}
+          editHref={(v) => `/admin/videos/${v.id}/edit`}
+          deleteAction={deleteVideoAction}
+        />
+      </Section>
+
+      <Section title="Themes">
+        <EntityTable
+          rows={themes}
+          titleKey={(t) => t.name}
+          subtitleKey={(t) => t.slug}
+          editHref={(t) => `/admin/themes/${t.id}/edit`}
+          deleteAction={deleteThemeAction}
+        />
       </Section>
 
       <Section title="Audit logs">
@@ -310,9 +360,9 @@ export default async function AdminPage() {
 
 function MetricCard({ label, value }: { label: string; value: number }) {
   return (
-    <div className="rounded-lg border border-[#e8eaed] bg-white px-4 py-3">
-      <p className="text-[11px] uppercase tracking-wide text-[#888]">{label}</p>
-      <p className="mt-1 text-xl font-semibold text-[#111]">{value}</p>
+    <div className="rounded-lg border border-white/15 bg-[#18364c]/70 px-4 py-3">
+      <p className="text-[11px] uppercase tracking-wide text-[#9ac0d7]">{label}</p>
+      <p className="mt-1 text-xl font-semibold text-white">{value}</p>
     </div>
   );
 }
@@ -320,23 +370,75 @@ function MetricCard({ label, value }: { label: string; value: number }) {
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <section className="mt-10">
-      <h2 className="mb-3 text-base font-semibold text-[#111]">{title}</h2>
+      <h2 className="mb-3 text-base font-semibold text-[#dcecf6]">{title}</h2>
       {children}
     </section>
   );
 }
 
-function SimpleList({ title, items }: { title: string; items: string[] }) {
+function DeleteForm({
+  action,
+  id,
+}: {
+  action: (formData: FormData) => Promise<void>;
+  id: number;
+}) {
   return (
-    <div className="rounded-lg border border-[#e8eaed] bg-white p-4">
-      <p className="text-xs font-semibold uppercase tracking-wide text-[#777]">{title}</p>
-      <ul className="mt-3 space-y-2 text-sm text-[#333]">
-        {items.length === 0 ? (
-          <li className="text-[#888]">No data</li>
-        ) : (
-          items.slice(0, 12).map((item) => <li key={item}>• {item}</li>)
-        )}
-      </ul>
+    <form action={action}>
+      <input type="hidden" name="id" value={String(id)} />
+      <button className="text-[#a13a3a] hover:underline">Delete</button>
+    </form>
+  );
+}
+
+function EntityTable<T extends { id: number }>({
+  rows,
+  titleKey,
+  subtitleKey,
+  editHref,
+  deleteAction,
+}: {
+  rows: T[];
+  titleKey: (row: T) => string;
+  subtitleKey: (row: T) => string;
+  editHref: (row: T) => string;
+  deleteAction: (formData: FormData) => Promise<void>;
+}) {
+  return (
+    <div className="overflow-hidden rounded-lg border border-white/15 bg-white">
+      <table className="w-full text-left text-sm">
+        <thead className="bg-[#f7f8fa] text-xs uppercase tracking-wide text-[#777]">
+          <tr>
+            <th className="px-4 py-3">Name</th>
+            <th className="px-4 py-3">Type/Slug</th>
+            <th className="px-4 py-3">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.length === 0 ? (
+            <tr className="border-t border-[#eef1f4]">
+              <td colSpan={3} className="px-4 py-4 text-[#888]">
+                No data
+              </td>
+            </tr>
+          ) : (
+            rows.map((row) => (
+              <tr key={row.id} className="border-t border-[#eef1f4]">
+                <td className="px-4 py-3 text-[#111]">{titleKey(row)}</td>
+                <td className="px-4 py-3 text-[#666]">{subtitleKey(row)}</td>
+                <td className="px-4 py-3">
+                  <div className="flex items-center gap-3">
+                    <Link href={editHref(row)} className="text-[#0a3450] hover:underline">
+                      Edit
+                    </Link>
+                    <DeleteForm action={deleteAction} id={row.id} />
+                  </div>
+                </td>
+              </tr>
+            ))
+          )}
+        </tbody>
+      </table>
     </div>
   );
 }

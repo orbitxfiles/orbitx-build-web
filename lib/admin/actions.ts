@@ -234,3 +234,128 @@ export async function createThemeAction(formData: FormData) {
   });
   redirect("/admin?created=theme");
 }
+
+function formInt(formData: FormData, key: string): number {
+  return Number.parseInt(String(formData.get(key) ?? "0"), 10);
+}
+
+export async function updateArticleAction(formData: FormData) {
+  const auth = await requireAdminToken();
+  if (auth.error || !auth.token) redirect(`/admin?error=${encodeURIComponent(auth.error ?? "auth")}`);
+  const id = formInt(formData, "id");
+  const title = String(formData.get("title") ?? "").trim();
+  const slug = String(formData.get("slug") ?? "").trim();
+  const excerpt = String(formData.get("excerpt") ?? "").trim() || null;
+  const visibility = String(formData.get("visibility") ?? "draft");
+  const published = String(formData.get("published") ?? "") === "on";
+
+  await apiFetch(`/articles/${id}`, {
+    method: "PATCH",
+    token: auth.token,
+    body: JSON.stringify({ title, slug, excerpt, visibility, published }),
+  });
+  redirect("/admin?updated=article");
+}
+
+export async function deleteArticleAction(formData: FormData) {
+  const auth = await requireAdminToken();
+  if (auth.error || !auth.token) redirect(`/admin?error=${encodeURIComponent(auth.error ?? "auth")}`);
+  const id = formInt(formData, "id");
+  await apiFetch(`/articles/${id}`, { method: "DELETE", token: auth.token });
+  redirect("/admin?deleted=article");
+}
+
+export async function updateCategoryAction(formData: FormData) {
+  const auth = await requireAdminToken();
+  if (auth.error || !auth.token) redirect(`/admin?error=${encodeURIComponent(auth.error ?? "auth")}`);
+  const id = formInt(formData, "id");
+  const name = String(formData.get("name") ?? "").trim();
+  const slug = String(formData.get("slug") ?? "").trim();
+  const description = String(formData.get("description") ?? "").trim() || null;
+  await apiFetch(`/categories/${id}`, {
+    method: "PATCH",
+    token: auth.token,
+    body: JSON.stringify({ name, slug, description }),
+  });
+  redirect("/admin?updated=category");
+}
+
+export async function deleteCategoryAction(formData: FormData) {
+  const auth = await requireAdminToken();
+  if (auth.error || !auth.token) redirect(`/admin?error=${encodeURIComponent(auth.error ?? "auth")}`);
+  const id = formInt(formData, "id");
+  await apiFetch(`/categories/${id}`, { method: "DELETE", token: auth.token });
+  redirect("/admin?deleted=category");
+}
+
+export async function updateResourceAction(formData: FormData) {
+  const auth = await requireAdminToken();
+  if (auth.error || !auth.token) redirect(`/admin?error=${encodeURIComponent(auth.error ?? "auth")}`);
+  const id = formInt(formData, "id");
+  const title = String(formData.get("title") ?? "").trim();
+  const file_url = String(formData.get("file_url") ?? "").trim();
+  const type = String(formData.get("type") ?? "pdf");
+  const description = String(formData.get("description") ?? "").trim() || null;
+  await apiFetch(`/resources/${id}`, {
+    method: "PATCH",
+    token: auth.token,
+    body: JSON.stringify({ title, file_url, type, description }),
+  });
+  redirect("/admin?updated=resource");
+}
+
+export async function deleteResourceAction(formData: FormData) {
+  const auth = await requireAdminToken();
+  if (auth.error || !auth.token) redirect(`/admin?error=${encodeURIComponent(auth.error ?? "auth")}`);
+  const id = formInt(formData, "id");
+  await apiFetch(`/resources/${id}`, { method: "DELETE", token: auth.token });
+  redirect("/admin?deleted=resource");
+}
+
+export async function updateVideoAction(formData: FormData) {
+  const auth = await requireAdminToken();
+  if (auth.error || !auth.token) redirect(`/admin?error=${encodeURIComponent(auth.error ?? "auth")}`);
+  const id = formInt(formData, "id");
+  const title = String(formData.get("title") ?? "").trim();
+  const video_url = String(formData.get("video_url") ?? "").trim();
+  const platform = String(formData.get("platform") ?? "youtube");
+  await apiFetch(`/videos/${id}`, {
+    method: "PATCH",
+    token: auth.token,
+    body: JSON.stringify({ title, video_url, platform }),
+  });
+  redirect("/admin?updated=video");
+}
+
+export async function deleteVideoAction(formData: FormData) {
+  const auth = await requireAdminToken();
+  if (auth.error || !auth.token) redirect(`/admin?error=${encodeURIComponent(auth.error ?? "auth")}`);
+  const id = formInt(formData, "id");
+  await apiFetch(`/videos/${id}`, { method: "DELETE", token: auth.token });
+  redirect("/admin?deleted=video");
+}
+
+export async function updateThemeAction(formData: FormData) {
+  const auth = await requireAdminToken();
+  if (auth.error || !auth.token) redirect(`/admin?error=${encodeURIComponent(auth.error ?? "auth")}`);
+  const id = formInt(formData, "id");
+  const name = String(formData.get("name") ?? "").trim();
+  const slug = String(formData.get("slug") ?? "").trim();
+  const primary_color = String(formData.get("primary_color") ?? "#0a3450");
+  const secondary_color = String(formData.get("secondary_color") ?? "#0d4366");
+  const accent_color = String(formData.get("accent_color") ?? "#1a7a5e");
+  await apiFetch(`/themes/${id}`, {
+    method: "PATCH",
+    token: auth.token,
+    body: JSON.stringify({ name, slug, primary_color, secondary_color, accent_color }),
+  });
+  redirect("/admin?updated=theme");
+}
+
+export async function deleteThemeAction(formData: FormData) {
+  const auth = await requireAdminToken();
+  if (auth.error || !auth.token) redirect(`/admin?error=${encodeURIComponent(auth.error ?? "auth")}`);
+  const id = formInt(formData, "id");
+  await apiFetch(`/themes/${id}`, { method: "DELETE", token: auth.token });
+  redirect("/admin?deleted=theme");
+}
