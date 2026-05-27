@@ -1,0 +1,27 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="512" height="512" rx="112" fill="#0A3450"/>
+  <!-- Orbit ring -->
+  <path
+    d="M96 286C124 170 238 104 338 126C429 146 476 244 436 328C393 419 265 456 169 412C104 377 80 328 96 286Z"
+    stroke="rgba(232,241,245,0.85)"
+    stroke-width="18"
+    stroke-linecap="round"
+  />
+  <!-- Inner glow -->
+  <circle cx="256" cy="256" r="132" fill="rgba(26,122,94,0.18)"/>
+  <!-- X mark -->
+  <path
+    d="M194 194L318 318"
+    stroke="#E8F1F5"
+    stroke-width="28"
+    stroke-linecap="round"
+  />
+  <path
+    d="M318 194L194 318"
+    stroke="#E8F1F5"
+    stroke-width="28"
+    stroke-linecap="round"
+  />
+  <!-- Accent dot -->
+  <circle cx="378" cy="170" r="14" fill="#1A7A5E"/>
+</svg>
