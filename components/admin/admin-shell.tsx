@@ -22,13 +22,13 @@ export function AdminShell({
   const pathname = usePathname();
 
   return (
-    <div className="min-h-screen bg-[#fafbfc] text-[#1a1a1a]">
-      <header className="border-b border-[#e8eaed] bg-white">
+    <div className="min-h-screen bg-gradient-to-b from-[#0d2231] via-[#10283a] to-[#142f44] text-[#e8f1f5]">
+      <header className="border-b border-white/10 bg-[#0b2030]/90 backdrop-blur">
         <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-6">
           <div className="flex items-center gap-8">
             <Link
               href="/admin"
-              className="text-sm font-semibold tracking-tight text-[#111]"
+              className="text-sm font-semibold tracking-tight text-white"
             >
               OrbitX Admin
             </Link>
@@ -44,8 +44,8 @@ export function AdminShell({
                     className={cn(
                       "rounded-md px-3 py-1.5 text-[13px] transition-colors",
                       active
-                        ? "bg-[#f0f2f5] font-medium text-[#111]"
-                        : "text-[#666] hover:text-[#111]"
+                        ? "bg-[#1b3e57] font-medium text-white"
+                        : "text-[#9ac0d7] hover:text-white"
                     )}
                   >
                     {item.label}
@@ -55,20 +55,20 @@ export function AdminShell({
             </nav>
           </div>
           <div className="flex items-center gap-4">
-            <span className="hidden text-[12px] text-[#666] sm:inline">
+            <span className="hidden text-[12px] text-[#9ac0d7] sm:inline">
               {user.email}
             </span>
             <form action={adminLogoutAction}>
               <button
                 type="submit"
-                className="text-[12px] font-medium text-[#888] transition-colors hover:text-[#333]"
+                className="text-[12px] font-medium text-[#9ac0d7] transition-colors hover:text-white"
               >
                 Sign out
               </button>
             </form>
             <Link
               href="/"
-              className="text-[12px] text-[#888] transition-colors hover:text-[#333]"
+              className="text-[12px] text-[#9ac0d7] transition-colors hover:text-white"
             >
               ← Site
             </Link>

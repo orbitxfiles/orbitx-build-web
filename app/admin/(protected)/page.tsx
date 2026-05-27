@@ -23,6 +23,36 @@ const ACTIONS = [
     icon: FolderPlus,
   },
   {
+    href: "/admin/articles/new",
+    title: "New article",
+    description: "Create a draft article and publish later.",
+    icon: FolderPlus,
+  },
+  {
+    href: "/admin/categories/new",
+    title: "New category",
+    description: "Add a new taxonomy category.",
+    icon: FolderPlus,
+  },
+  {
+    href: "/admin/resources/new",
+    title: "New resource",
+    description: "Add downloadable files and guides.",
+    icon: FolderPlus,
+  },
+  {
+    href: "/admin/videos/new",
+    title: "New video",
+    description: "Add new video reference entries.",
+    icon: FolderPlus,
+  },
+  {
+    href: "/admin/themes/new",
+    title: "New theme",
+    description: "Create section design themes.",
+    icon: FolderPlus,
+  },
+  {
     href: "/projects/orbitx-voice-pipeline",
     title: "View live page",
     description: "Open the public project page in a new tab.",
@@ -93,10 +123,10 @@ export default async function AdminPage() {
       <p className="text-[11px] font-medium uppercase tracking-[0.14em] text-[#999]">
         Admin
       </p>
-      <h1 className="mt-2 text-2xl font-semibold tracking-tight text-[#111]">
+      <h1 className="mt-2 text-2xl font-semibold tracking-tight text-white">
         Content dashboard
       </h1>
-      <p className="mt-2 max-w-lg text-[14px] leading-relaxed text-[#666]">
+      <p className="mt-2 max-w-lg text-[14px] leading-relaxed text-[#b9d2e2]">
         Everything currently stored in backend APIs. Use this page to verify what
         is live in projects, articles, taxonomy, and media.
       </p>
@@ -110,21 +140,21 @@ export default async function AdminPage() {
         <MetricCard label="Themes" value={themes.length} />
       </div>
 
-      <div className="mt-10 grid gap-3 sm:grid-cols-3">
+      <div className="mt-10 grid gap-3 sm:grid-cols-3 lg:grid-cols-4">
         {ACTIONS.map((action) => {
           const Icon = action.icon;
           const className =
-            "group flex flex-col rounded-lg border border-[#e8eaed] bg-white p-5 transition-all hover:border-[#d0d4d9] hover:shadow-[0_2px_8px_rgba(0,0,0,0.04)]";
+            "group flex flex-col rounded-lg border border-white/15 bg-[#18364c]/70 p-5 transition-all hover:border-[#4e89ad] hover:bg-[#1d3f57]";
           const inner = (
             <>
-              <Icon className="h-4 w-4 text-[#888] group-hover:text-[#333]" />
-              <p className="mt-4 text-[14px] font-medium text-[#111]">
+              <Icon className="h-4 w-4 text-[#95bcd2] group-hover:text-[#dcecf6]" />
+              <p className="mt-4 text-[14px] font-medium text-white">
                 {action.title}
               </p>
-              <p className="mt-1 text-[12px] leading-relaxed text-[#888]">
+              <p className="mt-1 text-[12px] leading-relaxed text-[#b9d2e2]">
                 {action.description}
               </p>
-              <ArrowUpRight className="mt-4 h-3.5 w-3.5 text-[#ccc] group-hover:text-[#666]" />
+              <ArrowUpRight className="mt-4 h-3.5 w-3.5 text-[#95bcd2] group-hover:text-white" />
             </>
           );
           return action.external ? (

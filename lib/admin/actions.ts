@@ -67,16 +67,11 @@ export async function adminLogoutAction() {
   redirect("/admin/login");
 }
 
-export async function saveProjectAction(input: {
-  mode: "create" | "edit";
-  slug: string;
-  payload: Record<string, unknown>;
-}): Promise<{ error?: string; slug?: string }> {
+async function requireAdminToken(): Promise<{ token?: string; error?: string }> {
   const token = await getAccessToken();
   if (!token) {
     return { error: "Not authenticated. Please sign in again." };
   }
-
   try {
     const me = await getMe(token);
     if (!isAdminRole(me.role)) {
@@ -84,6 +79,18 @@ export async function saveProjectAction(input: {
     }
   } catch {
     return { error: "Session expired. Please sign in again." };
+  }
+  return { token };
+}
+
+export async function saveProjectAction(input: {
+  mode: "create" | "edit";
+  slug: string;
+  payload: Record<string, unknown>;
+}): Promise<{ error?: string; slug?: string }> {
+  const auth = await requireAdminToken();
+  if (auth.error || !auth.token) {
+    return { error: auth.error ?? "Not authenticated." };
   }
 
   try {
@@ -93,7 +100,7 @@ export async function saveProjectAction(input: {
 
     await apiFetch<unknown>(path, {
       method,
-      token,
+      token: auth.token,
       body: JSON.stringify(input.payload),
     });
 
@@ -104,4 +111,126 @@ export async function saveProjectAction(input: {
       error: err instanceof Error ? err.message : "Failed to save project.",
     };
   }
+}
+
+export async function createArticleAction(formData: FormData) {
+  const auth = await requireAdminToken();
+  if (auth.error || !auth.token) redirect(`/admin?error=${encodeURIComponent(auth.error ?? "auth")}`);
+
+  const title = String(formData.get("title") ?? "").trim();
+  const slug = String(formData.get("slug") ?? "").trim();
+  const excerpt = String(formData.get("excerpt") ?? "").trim() || null;
+  if (!title || !slug) {
+    redirect("/admin/articles/new?error=title-slug-required");
+  }
+
+  await apiFetch("/articles", {
+    method: "POST",
+    token: auth.token,
+    body: JSON.stringify({
+      title,
+      slug,
+      excerpt,
+      content_markdown: "",
+      visibility: "draft",
+      published: false,
+      featured: false,
+    }),
+  });
+  redirect("/admin?created=article");
+}
+
+export async function createCategoryAction(formData: FormData) {
+  const auth = await requireAdminToken();
+  if (auth.error || !auth.token) redirect(`/admin?error=${encodeURIComponent(auth.error ?? "auth")}`);
+
+  const name = String(formData.get("name") ?? "").trim();
+  const slug = String(formData.get("slug") ?? "").trim();
+  const description = String(formData.get("description") ?? "").trim() || null;
+  if (!name || !slug) {
+    redirect("/admin/categories/new?error=name-slug-required");
+  }
+
+  await apiFetch("/categories", {
+    method: "POST",
+    token: auth.token,
+    body: JSON.stringify({ name, slug, description }),
+  });
+  redirect("/admin?created=category");
+}
+
+export async function createResourceAction(formData: FormData) {
+  const auth = await requireAdminToken();
+  if (auth.error || !auth.token) redirect(`/admin?error=${encodeURIComponent(auth.error ?? "auth")}`);
+
+  const title = String(formData.get("title") ?? "").trim();
+  const file_url = String(formData.get("file_url") ?? "").trim();
+  const type = String(formData.get("type") ?? "pdf");
+  const description = String(formData.get("description") ?? "").trim() || null;
+  if (!title || !file_url) {
+    redirect("/admin/resources/new?error=title-url-required");
+  }
+
+  await apiFetch("/resources", {
+    method: "POST",
+    token: auth.token,
+    body: JSON.stringify({ title, file_url, type, description }),
+  });
+  redirect("/admin?created=resource");
+}
+
+export async function createVideoAction(formData: FormData) {
+  const auth = await requireAdminToken();
+  if (auth.error || !auth.token) redirect(`/admin?error=${encodeURIComponent(auth.error ?? "auth")}`);
+
+  const title = String(formData.get("title") ?? "").trim();
+  const video_url = String(formData.get("video_url") ?? "").trim();
+  const platform = String(formData.get("platform") ?? "youtube");
+  if (!title || !video_url) {
+    redirect("/admin/videos/new?error=title-url-required");
+  }
+
+  await apiFetch("/videos", {
+    method: "POST",
+    token: auth.token,
+    body: JSON.stringify({ title, video_url, platform }),
+  });
+  redirect("/admin?created=video");
+}
+
+export async function createThemeAction(formData: FormData) {
+  const auth = await requireAdminToken();
+  if (auth.error || !auth.token) redirect(`/admin?error=${encodeURIComponent(auth.error ?? "auth")}`);
+
+  const name = String(formData.get("name") ?? "").trim();
+  const slug = String(formData.get("slug") ?? "").trim();
+  const primary_color = String(formData.get("primary_color") ?? "#0a3450");
+  const secondary_color = String(formData.get("secondary_color") ?? "#0d4366");
+  const accent_color = String(formData.get("accent_color") ?? "#1a7a5e");
+  if (!name || !slug) {
+    redirect("/admin/themes/new?error=name-slug-required");
+  }
+
+  await apiFetch("/themes", {
+    method: "POST",
+    token: auth.token,
+    body: JSON.stringify({
+      name,
+      slug,
+      primary_color,
+      secondary_color,
+      accent_color,
+      background_color: "#e8f1f5",
+      text_color: "#1f2937",
+      strong_text_color: "#0a3450",
+      muted_text_color: "#4a6b82",
+      border_color: "rgba(13,67,102,0.12)",
+      heading_font: "Inter",
+      body_font: "Inter",
+      button_radius: "0.5rem",
+      card_radius: "0.75rem",
+      is_default: false,
+    }),
+  });
+  redirect("/admin?created=theme");
 }
